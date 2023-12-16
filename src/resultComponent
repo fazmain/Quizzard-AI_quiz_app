@@ -1,0 +1,23 @@
+import React from 'react';
+import { Box, Text } from '@chakra-ui/react';
+
+function ResultComponent({ userAnswers, correctAnswers }) {
+  const score = Object.keys(userAnswers).reduce((total, questionId) => {
+    return total + (userAnswers[questionId] === correctAnswers[questionId] ? 1 : 0);
+  }, 0);
+
+  return (
+    <Box p={4}>
+      <Text fontSize="2xl" mb={4}>Your Score: {score}/{Object.keys(correctAnswers).length}</Text>
+      {Object.keys(correctAnswers).map((questionId, index) => (
+        <Box key={index} mb={2}>
+          <Text fontWeight="bold">Question {index + 1}:</Text>
+          <Text>Your answer: {userAnswers[questionId]}</Text>
+          <Text>Correct answer: {correctAnswers[questionId]}</Text>
+        </Box>
+      ))}
+    </Box>
+  );
+}
+
+export default ResultComponent;
